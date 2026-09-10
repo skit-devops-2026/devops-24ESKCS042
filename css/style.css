@@ -1,0 +1,75 @@
+/* Reset some default spacing */
+
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* Body */
+
+body{
+    font-family: Arial, Helvetica, sans-serif;
+    background-color: #ffffff;
+}
+
+/* Header */
+
+header{
+    background-color: #8B0000;
+    color: white;
+    padding: 20px;
+    text-align: center;
+}
+
+/* Navigation */
+
+nav{
+    margin-top: 15px;
+}
+
+nav a{
+    color: white;
+    text-decoration: none;
+    margin: 0 15px;
+    font-size: 18px;
+}
+
+nav a:hover{
+    color: #ffd6d6;
+}
+
+/* Hero Section */
+
+section{
+    text-align: center;
+    padding: 80px 20px;
+}
+
+section h1{
+    font-size: 40px;
+    color: #8B0000;
+    margin-bottom: 20px;
+}
+
+section p{
+    font-size: 18px;
+    color: #555;
+    margin-bottom: 30px;
+}
+
+/* Button */
+
+button{
+    background-color: #8B0000;
+    color: white;
+    border: none;
+    padding: 12px 25px;
+    font-size: 16px;
+    cursor: pointer;
+    border-radius: 5px;
+}
+
+button:hover{
+    background-color: #a80000;
+}

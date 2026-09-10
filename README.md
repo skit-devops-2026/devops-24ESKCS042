@@ -1,36 +1,23 @@
-# <Project Name>
+# 🩸 BloodBank
 
-> Replace every angle-bracket placeholder below. The hygiene check in CI will
-> fail until you do.
+> *"Every Drop is Incomparable, Every Life is Priceless."*
 
-## Author
+BloodBank is a Blood Bank Management System developed as a college project using **HTML, CSS, and JavaScript**. The project aims to connect blood donors, hospitals, blood banks, and the public through a simple and user-friendly platform.
 
-| Roll No. | Name | GitHub username |
-|---|---|---|
-| <roll> | <name> | <username> |
+## 🚀 Technologies Used
 
-## About
+- HTML5
+- CSS3
+- JavaScript *(Coming Soon)*
 
-<Two or three sentences on what this application does.>
+## 📂 Project Status
 
-## Tech stack
+🚧 Currently working on the Landing Page.
 
-- Frontend: <e.g. React>
-- Backend: <e.g. Node.js / Express>
-- Database: <e.g. PostgreSQL>
+More features will be added as the project progresses.
 
-## Running locally
+## 👨‍💻 Developer
 
-```bash
-make install
-make run
-```
-
-## Live URL
-
-<Add once M5 is done. Until then, leave as is.>
-
-## Health endpoint
-
-`GET /health` returns the running commit SHA. See `Makefile` and the milestone
-sheet for why this is required.
+**Amisha Choudhary**
+**Anchal**
+**Arushi Yadav**
