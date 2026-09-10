@@ -1,36 +1,39 @@
-# <Project Name>
+# Blood Bank Management System
 
-> Replace every angle-bracket placeholder below. The hygiene check in CI will
-> fail until you do.
+A Blood Bank Management System is a web application that helps users search for available blood, register as blood donors, and request blood during emergencies. The project aims to simplify blood donation and improve communication between donors and recipients.
 
 ## Author
 
-| Roll No. | Name | GitHub username |
-|---|---|---|
-| <roll> | <name> | <username> |
+| Roll No. | Name | GitHub Username |
+|----------|------|-----------------|
+| 24ESKCS042 | Amisha Choudhary | amisha-2403 |
 
 ## About
 
-<Two or three sentences on what this application does.>
+This project is being developed as part of the DevOps Practices and Principles course. It demonstrates the use of Git, GitHub, CI/CD, Docker, Jenkins, Kubernetes, and deployment practices while building a Blood Bank Management System.
 
-## Tech stack
+## Tech Stack
 
-- Frontend: <e.g. React>
-- Backend: <e.g. Node.js / Express>
-- Database: <e.g. PostgreSQL>
+- Frontend: HTML, CSS
+- Backend: Not implemented yet
+- Database: Not implemented yet
 
-## Running locally
+## Running Locally
 
-```bash
-make install
-make run
-```
+1. Clone the repository:
+
+   ```bash
+   git clone https://github.com/skit-devops-2026/devops-24ESKCS042.git
+   ```
+
+2. Open the project folder.
+
+3. Open `index.html` in your web browser.
 
 ## Live URL
 
-<Add once M5 is done. Until then, leave as is.>
+Will be added after deployment in Milestone 5.
 
-## Health endpoint
+## Health Endpoint
 
-`GET /health` returns the running commit SHA. See `Makefile` and the milestone
-sheet for why this is required.
+The `/health` endpoint will be implemented during the backend development phase as required by the DevOps milestone.
