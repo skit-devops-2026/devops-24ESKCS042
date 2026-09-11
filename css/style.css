@@ -193,3 +193,34 @@ section ul li{
 .compatibility tr:nth-child(even){
     background-color: #fff5f5;
 }
+/* Emergency Section */
+
+.emergency{
+    background-color: #8B0000;
+    color: white;
+    padding: 70px 20px;
+    text-align: center;
+}
+
+.emergency h2{
+    font-size: 35px;
+    margin-bottom: 20px;
+}
+
+.emergency p{
+    width: 70%;
+    margin: auto;
+    line-height: 28px;
+    margin-bottom: 25px;
+    color: white;
+}
+
+.emergency button{
+    background-color: white;
+    color: #8B0000;
+    margin: 5px;
+}
+
+.emergency button:hover{
+    background-color: #ffd6d6;
+}
