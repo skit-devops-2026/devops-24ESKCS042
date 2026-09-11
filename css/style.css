@@ -110,3 +110,86 @@ section ul li{
     margin: 10px 0;
     color: #333;
 }
+/* Blood Search Section */
+
+.blood-search{
+    background-color: #fff5f5;
+    padding: 60px 20px;
+    text-align: center;
+}
+
+.blood-search h2{
+    color: #8B0000;
+    font-size: 32px;
+    margin-bottom: 15px;
+}
+
+.blood-search p{
+    color: #555;
+    margin-bottom: 30px;
+}
+
+.blood-search form{
+    width: 80%;
+    max-width: 600px;
+    margin: auto;
+}
+
+.blood-search label{
+    display: block;
+    text-align: left;
+    margin-top: 15px;
+    margin-bottom: 5px;
+    color: #333;
+}
+
+.blood-search select,
+.blood-search input{
+    width: 100%;
+    padding: 12px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 16px;
+}
+
+.blood-search button{
+    margin-top: 25px;
+}
+/* Blood Compatibility Section */
+
+.compatibility{
+    padding: 60px 20px;
+    text-align: center;
+}
+
+.compatibility h2{
+    color: #8B0000;
+    font-size: 32px;
+    margin-bottom: 15px;
+}
+
+.compatibility p{
+    color: #555;
+    margin-bottom: 30px;
+}
+
+.compatibility table{
+    width: 90%;
+    margin: auto;
+    border-collapse: collapse;
+}
+
+.compatibility th{
+    background-color: #8B0000;
+    color: white;
+    padding: 15px;
+}
+
+.compatibility td{
+    border: 1px solid #ddd;
+    padding: 12px;
+}
+
+.compatibility tr:nth-child(even){
+    background-color: #fff5f5;
+}
