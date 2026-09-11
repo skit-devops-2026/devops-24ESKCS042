@@ -11,10 +11,10 @@
 .PHONY: install test build run docker-build docker-up
 
 install:
-	@echo "TODO: install dependencies" && exit 1
+	@echo "nO external dependencies required" 
 
 test:
-	@echo "TODO: run the test suite" && exit 1
+	bash tests/test_project.sh	
 
 build:
 	@echo "TODO: build the project" && exit 1
