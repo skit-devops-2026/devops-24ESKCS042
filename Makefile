@@ -17,7 +17,7 @@ test:
 	bash tests/test_project.sh	
 
 build:
-	@echo "TODO: build the project" && exit 1
+	@echo "Static HTML/CSS project - no build step required"
 
 run:
 	@echo "TODO: start the app locally" && exit 1
