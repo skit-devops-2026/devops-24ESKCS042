@@ -224,3 +224,40 @@ section ul li{
 .emergency button:hover{
     background-color: #ffd6d6;
 }
+/* How It Works Section */
+
+.how-it-works{
+    padding: 60px 20px;
+    text-align: center;
+    background-color: #ffffff;
+}
+
+.how-it-works h2{
+    color: #8B0000;
+    font-size: 32px;
+    margin-bottom: 15px;
+}
+
+.how-it-works > p{
+    color: #555;
+    margin-bottom: 30px;
+}
+
+.how-it-works div{
+    width: 80%;
+    margin: 20px auto;
+    padding: 20px;
+    border: 1px solid #f0cccc;
+    border-radius: 8px;
+    background-color: #fff5f5;
+}
+
+.how-it-works h3{
+    color: #8B0000;
+    margin-bottom: 10px;
+}
+
+.how-it-works div p{
+    color: #555;
+    line-height: 25px;
+}
