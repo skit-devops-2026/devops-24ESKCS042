@@ -62,3 +62,7 @@ Will be added after deployment in Milestone 5.
 
 The `/health` endpoint will be implemented during the backend development phase as required by the DevOps mileston
  520b9cf607338c6a731d86503c94af19e2943489
+## Current Project Status 
+
+- Frontend: HTML and CSS implemented
+-CI pipeline: configured and passing 
