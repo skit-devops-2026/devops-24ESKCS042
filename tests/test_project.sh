@@ -24,5 +24,8 @@ echo "PASS : Blood bank content is present"
 #Test 5: HTML contain a page title
 grep  -q "<title>" index.html
 echo "PASS: Page title is present "
-echo
+#Test 6 : HTML Links the stylesheet
+grep -q 'css/style.css' index.html
+echo "PASS: Stylesheet is linked correctly"
+echo 
 echo "All Blood bank project tests passed!"
