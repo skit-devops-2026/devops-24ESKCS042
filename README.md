@@ -61,10 +61,11 @@ Backend and database work has not started.
 │   ├── prometheus.yml
 │   └── dashboard.md
 └── docs/                       # Evidence and documentation (M6)
-    ├── TESTING.md
-    ├── DEPLOYMENT.md
-    ├── DEPLOYMENT-SCREENSHOT.md
-    └── DOCKER_SCENARIOS.md
+    ├── deployment.md           # Live URL, delivery history, how to reproduce it
+    ├── DOCKER_SCENARIOS.md     # The 12 Docker scenarios, answered
+    ├── TESTING.md              # What the suite covers, how to extend it
+    └── images/
+        └── live-deployment.png # Screenshot of the deployed site
 ```
 
 ## Running Locally
@@ -97,11 +98,12 @@ make test
 ```
 
 The suite checks that the HTML entry point and stylesheet exist, that the document structure is
-well formed, that the page is blood-bank specific, and that the stylesheet is linked correctly.
+well formed, that the page is blood-bank specific, that it has a title, that the stylesheet is
+linked, and that the blood group compatibility table is present.
 See [docs/TESTING.md](docs/TESTING.md).
 
-The same suite is executed **inside the container image** by the CI pipeline, so the artefact that
-ships is the artefact that is tested.
+The same suite is executed **inside the container image** by the CI pipeline, against
+`/usr/share/nginx/html`, so the artefact that ships is the artefact that is tested.
 
 ## CI/CD Pipeline
 
@@ -110,10 +112,13 @@ ships is the artefact that is tested.
 1. **Repository hygiene** — placeholder, oversized-file, secret and commit-message checks.
 2. **Build and test** — `make install`, `make test`, `make build`.
 3. **Container build, test and publish** — builds the image, runs the test suite inside the
-   container, tags it with the commit SHA, and pushes it to GHCR.
+   container, tags it with the commit SHA, pushes it to GHCR, then pulls it back and prints the
+   digest the registry reports.
 
-Images are tagged by commit SHA rather than `latest`, so every build is traceable to the exact
-code that produced it.
+Every build is published under two tags: the commit SHA, so each image is traceable to the exact
+code that produced it, and `latest` as a moving convenience tag. The push and pull-back steps run
+only on pushes to `main`, because `GITHUB_TOKEN` is read-only on pull requests — the build and the
+in-container test still run there, so a pull request is still fully verified.
 
 ## Container Image
 
@@ -128,6 +133,10 @@ Pull it with:
 ```bash
 docker pull ghcr.io/skit-devops-2026/bloodbank:<commit-sha>
 ```
+
+The package is currently **private**, so you will need to be logged in to an account with access
+before that pull will succeed. Set it to public under
+`Settings -> Packages -> bloodbank -> Change visibility` if you need anonymous pulls.
 
 ## Kubernetes
 
@@ -146,6 +155,15 @@ kubectl get pods
 [`monitoring/prometheus.yml`](monitoring/prometheus.yml) scrapes the application every 15
 seconds. [`monitoring/dashboard.md`](monitoring/dashboard.md) records what is monitored and the
 health-check procedure.
+
+## Documentation
+
+| Document | Contents |
+|----------|----------|
+| [docs/deployment.md](docs/deployment.md) | Live URL and how it is deployed, registry details, delivery history, how to reproduce |
+| [docs/DOCKER_SCENARIOS.md](docs/DOCKER_SCENARIOS.md) | The twelve Docker scenarios, answered, and what each means for this project |
+| [docs/TESTING.md](docs/TESTING.md) | What the suite covers, how to run it locally and in the image, how to extend it |
+| [monitoring/dashboard.md](monitoring/dashboard.md) | What is monitored and the health-check procedure |
 
 ## Repository Conventions
 

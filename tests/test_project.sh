@@ -2,7 +2,7 @@
 # Automated test suite for the Blood Bank Management System.
 #
 # Usage:
-#   bash tests/test_project.sh
+#   sh tests/test_project.sh
 #       Check the files in the working tree (developer laptop, CI runner, Jenkins).
 #
 #   sh /opt/bloodbank/tests/test_project.sh /usr/share/nginx/html
