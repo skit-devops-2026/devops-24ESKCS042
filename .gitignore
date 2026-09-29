@@ -28,5 +28,8 @@ Thumbs.db
 *.log
 npm-debug.log*
 
+# Course reference material (grading sheets, not part of the application)
+*.pdf
+
 # but keep the example file
 !.env.example

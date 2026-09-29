@@ -1,0 +1,13 @@
+# Normalise text files to LF in the repository and in the working tree.
+# Without this, a Windows checkout with core.autocrlf=true can leave CRLF in
+# shell scripts, which then fail on the CI runner with:
+#   bad interpreter: /bin/bash^M
+* text=auto eol=lf
+
+# Binary assets must never be line-ending translated.
+*.png binary
+*.jpg binary
+*.jpeg binary
+*.gif binary
+*.ico binary
+*.pdf binary

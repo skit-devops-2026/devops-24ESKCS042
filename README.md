@@ -1,68 +1,155 @@
- HEAD
-# 🩸 BloodBank
-
- *"Every Drop is Incomparable, Every Life is Priceless."*
-
 # Blood Bank Management System
 
-A Blood Bank Management System is a web application that helps users search for available blood, register as blood donors, and request blood during emergencies. The project aims to simplify blood donation and improve communication between donors and recipients.
- 520b9cf607338c6a731d86503c94af19e2943489
+> *"Every Drop is Incomparable, Every Life is Priceless."*
 
-BloodBank is a Blood Bank Management System developed as a college project using **HTML, CSS, and JavaScript**. The project aims to connect blood donors, hospitals, blood banks, and the public through a simple and user-friendly platform.
+A web application that helps users search for available blood, register as blood donors, and
+request blood during emergencies. The project aims to simplify blood donation and improve
+communication between donors and recipients.
 
- HEAD
-## 🚀 Technologies Used
+The application itself is graded in the FSD Lab. This repository is graded on how the project is
+**versioned, built, tested, packaged, deployed and monitored**.
+
+## Developer
 
 | Roll No. | Name | GitHub Username |
 |----------|------|-----------------|
 | 24ESKCS042 | Amisha Choudhary | amisha-2403 |
- 520b9cf607338c6a731d86503c94af19e2943489
 
-- HTML5
-- CSS3
-- JavaScript *(Coming Soon)*
-
- HEAD
-## 📂 Project Status
-
-🚧 Currently working on the Landing Page.
-
-More features will be added as the project progresses.
-
-## 👨‍💻 Developer
-
-**Amisha Choudhary**
-
-
-This project is being developed as part of the DevOps Practices and Principles course. It demonstrates the use of Git, GitHub, CI/CD, Docker, Jenkins, Kubernetes, and deployment practices while building a Blood Bank Management System.
-
-## Tech Stack
-
-- Frontend: HTML, CSS
-- Backend: Not implemented yet
-- Database: Not implemented yet
-
-## Running Locally
-
-1. Clone the repository:
-
-   ```bash
-   git clone https://github.com/skit-devops-2026/devops-24ESKCS042.git
-   ```
-
-2. Open the project folder.
-
-3. Open `index.html` in your web browser.
+Course: DevOps Practices and Principles (CSUL511), B.Tech CSE Semester V, Session 2026.
 
 ## Live URL
 
-Will be added after deployment in Milestone 5.
+**https://skit-devops-2026.github.io/devops-24ESKCS042/**
 
-## Health Endpoint
+Deployed from this repository via GitHub Actions to GitHub Pages on every push to `main`.
 
-The `/health` endpoint will be implemented during the backend development phase as required by the DevOps mileston
- 520b9cf607338c6a731d86503c94af19e2943489
-## Current Project Status 
+## Tech Stack
 
-- Frontend: HTML and CSS implemented
--CI pipeline: configured and passing 
+- Frontend: HTML5, CSS3
+- Backend: not implemented yet
+- Database: not implemented yet
+- Web server in the container: Nginx (Alpine)
+- CI: GitHub Actions
+- CD: GitHub Pages
+- Container registry: GitHub Container Registry (GHCR)
+- Orchestration: Kubernetes
+- Monitoring: Prometheus
+
+## Project Status
+
+The landing page is complete and includes the blood group search form, the blood group
+compatibility table, the emergency request section, and the "How BloodBank Works" walkthrough.
+Backend and database work has not started.
+
+## Project Structure
+
+```
+.
+├── index.html                  # Application entry point
+├── css/style.css               # Stylesheet
+├── tests/test_project.sh       # Automated test suite
+├── scripts/hygiene.sh          # Repository hygiene checks (M1)
+├── Dockerfile                  # Container image definition
+├── .dockerignore               # Keeps build context small
+├── docker-compose.yml          # Local container orchestration
+├── Jenkinsfile                 # Jenkins pipeline (M4)
+├── Makefile                    # install / test / build entry points used by CI
+├── k8s/                        # Kubernetes manifests (M7)
+│   ├── deployment.yaml
+│   └── service.yaml
+├── monitoring/                 # Prometheus config and dashboard (M6)
+│   ├── prometheus.yml
+│   └── dashboard.md
+└── docs/                       # Evidence and documentation (M6)
+    ├── TESTING.md
+    ├── DEPLOYMENT.md
+    ├── DEPLOYMENT-SCREENSHOT.md
+    └── DOCKER_SCENARIOS.md
+```
+
+## Running Locally
+
+### Option 1 — Open directly
+
+Open `index.html` in your browser. No installation required.
+
+### Option 2 — With Docker
+
+```bash
+docker build -t bloodbank .
+docker run -p 8081:80 --name bloodbank bloodbank
+```
+
+Then visit http://localhost:8081
+
+### Option 3 — With Docker Compose
+
+```bash
+docker compose up --build
+```
+
+Then visit http://localhost:8081
+
+## Testing
+
+```bash
+make test
+```
+
+The suite checks that the HTML entry point and stylesheet exist, that the document structure is
+well formed, that the page is blood-bank specific, and that the stylesheet is linked correctly.
+See [docs/TESTING.md](docs/TESTING.md).
+
+The same suite is executed **inside the container image** by the CI pipeline, so the artefact that
+ships is the artefact that is tested.
+
+## CI/CD Pipeline
+
+`.github/workflows/ci.yml` runs on every push and pull request and performs:
+
+1. **Repository hygiene** — placeholder, oversized-file, secret and commit-message checks.
+2. **Build and test** — `make install`, `make test`, `make build`.
+3. **Container build, test and publish** — builds the image, runs the test suite inside the
+   container, tags it with the commit SHA, and pushes it to GHCR.
+
+Images are tagged by commit SHA rather than `latest`, so every build is traceable to the exact
+code that produced it.
+
+## Container Image
+
+Published at:
+
+```
+ghcr.io/skit-devops-2026/bloodbank:<commit-sha>
+```
+
+Pull it with:
+
+```bash
+docker pull ghcr.io/skit-devops-2026/bloodbank:<commit-sha>
+```
+
+## Kubernetes
+
+Manifests live in [`k8s/`](k8s/). A local cluster can be started with `kind` or `k3d` (both run
+inside Docker) rather than minikube, since the image is already available locally after M5.
+
+```bash
+kind create cluster
+kubectl apply -f k8s/deployment.yaml
+kubectl apply -f k8s/service.yaml
+kubectl get pods
+```
+
+## Monitoring
+
+[`monitoring/prometheus.yml`](monitoring/prometheus.yml) scrapes the application every 15
+seconds. [`monitoring/dashboard.md`](monitoring/dashboard.md) records what is monitored and the
+health-check procedure.
+
+## Repository Conventions
+
+- `main` is protected by convention: work lands through a pull request with a written description
+  of what changed, rather than by direct push.
+- Course reference material (`*.pdf`) is intentionally not tracked.
+- Secrets are never committed. `.env.example` documents the expected variables.
