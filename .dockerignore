@@ -1,0 +1,46 @@
+# Without this file `docker build` sends the entire repository to the Docker daemon
+# as build context, and every stray file (git history, CI config, course PDFs,
+# dependency folders) ends up baked into the image. That is the single most common
+# cause of a 1.2 GB image where 180 MB was expected.
+
+# Version control
+.git
+.gitignore
+.gitattributes
+
+# Course reference material is not part of the application
+*.pdf
+
+# Continuous integration, orchestration and documentation are build-time concerns
+.github
+.gitlab-ci.yml
+k8s
+monitoring
+docs
+
+# Local environment and secrets must never reach an image layer
+.env
+.env.*
+!.env.example
+
+# Dependency directories - none are required today, but guard against them
+# reappearing locally and silently inflating the build context
+node_modules
+venv
+.venv
+__pycache__
+vendor
+
+# Build output
+dist
+build
+
+# Editor and operating system noise
+.vscode
+.idea
+.DS_Store
+Thumbs.db
+
+# Logs
+*.log
+npm-debug.log*
