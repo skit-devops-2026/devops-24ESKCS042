@@ -11,7 +11,7 @@
 .PHONY: install test build run docker-build docker-up
 
 install:
-	@echo "nO external dependencies required" 
+	@echo "No external dependencies required"
 
 test:
 	bash tests/test_project.sh	
@@ -20,11 +20,11 @@ build:
 	@echo "Static HTML/CSS project - no build step required"
 
 run:
-	@echo "TODO: start the app locally" && exit 1
+	docker compose up --build
 
 # Needed from M4 onwards
 docker-build:
-	@echo "TODO: docker build for frontend and backend" && exit 1
+	docker build -t bloodbank .
 
 docker-up:
 	docker compose up --build
