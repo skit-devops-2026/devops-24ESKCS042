@@ -13,7 +13,7 @@ make test
 or directly:
 
 ```bash
-bash tests/test_project.sh
+sh tests/test_project.sh
 ```
 
 ## What is covered
@@ -26,6 +26,11 @@ The suite checks that:
 4. `index.html` contains blood bank specific content
 5. `index.html` contains a page title
 6. `index.html` links the stylesheet
+7. `index.html` contains the blood group compatibility table
+
+The suite takes an optional root directory as its first argument, which defaults to the
+repository root. That is what lets the identical script test the working tree locally and the
+built image in CI.
 
 ## Running the tests inside the container
 
@@ -34,10 +39,18 @@ is the artefact that is verified:
 
 ```bash
 docker build -t bloodbank .
-docker run --rm bloodbank sh /usr/local/bin/run-tests.sh
+docker run --rm bloodbank sh /opt/bloodbank/tests/test_project.sh /usr/share/nginx/html
 ```
 
 The script is POSIX `sh`, so it runs on Alpine-based images that do not ship Bash.
+
+Note the argument. It points the suite at `/usr/share/nginx/html`, the directory the application
+is actually served from inside the container, rather than at a copy of the source somewhere else.
+That is what makes the result meaningful: a green run here is evidence about the artefact that
+ships, not about the repository that built it.
+
+The image's `CMD` is `nginx`, so passing a command overrides it for that single run and the image
+is left unchanged.
 
 ## Adding tests
 
