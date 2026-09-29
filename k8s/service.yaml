@@ -1,0 +1,26 @@
+# Blood Bank Management System - Kubernetes Service
+#
+#   kubectl apply -f k8s/service.yaml
+#   kubectl get svc bloodbank
+#
+# ClusterIP is the default in-cluster type. It gives the pods a stable DNS name
+# (`bloodbank.<namespace>.svc.cluster.local`) that survives pod restarts, which is why
+# a Service exists separately from the Deployment rather than being baked into it.
+apiVersion: v1
+kind: Service
+metadata:
+  name: bloodbank
+  labels:
+    app: bloodbank
+spec:
+  type: ClusterIP
+  selector:
+    app: bloodbank
+  ports:
+    - name: http
+      protocol: TCP
+      port: 80
+      targetPort: http
+  # Route to the pod the readiness probe has already marked healthy, rather than to any
+  # container that happens to be running.
+  publishNotReadyAddresses: false
