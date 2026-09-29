@@ -4,6 +4,13 @@ on:
   push:
   pull_request:
 
+# `contents: read` is all the checkout needs. `packages: write` is what allows the
+# workflow to publish the image to GitHub Container Registry using the automatic
+# GITHUB_TOKEN, so no personal access token is ever stored in this file.
+permissions:
+  contents: read
+  packages: write
+
 jobs:
   # Given to you. Do not delete this job.
   hygiene:
@@ -40,6 +47,53 @@ jobs:
       - run: make test
       - run: make build
 
-  # M4 — Docker/Jenkins section
-  # docker:
-  #   ...
+  # M4/M5 — container build, in-container test, and registry publish.
+  #
+  # The important distinction this job encodes: `build-and-test` proves the source
+  # passes its tests on the runner, this job proves the *image* does. The runner and
+  # the image are different environments, and only the second one is what deploys.
+  container:
+    name: Container build, test and publish
+    needs: [hygiene, build-and-test]
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Build the image
+        run: docker build -t bloodbank:ci .
+
+      - name: Run the test suite inside the container
+        # The image's own CMD is `nginx`, so passing a command here replaces it for
+        # this run only. The image is not modified; only what it starts with, this
+        # once. Tests run against /usr/share/nginx/html, which is where the app is
+        # actually served from inside the image.
+        run: >
+          docker run --rm bloodbank:ci
+          sh /opt/bloodbank/tests/test_project.sh /usr/share/nginx/html
+
+      - name: Log in to GitHub Container Registry
+        # GITHUB_TOKEN is minted automatically for this run and is never stored in
+        # the repository, unlike a personal access token.
+        run: >
+          echo "${{ secrets.GITHUB_TOKEN }}" |
+          docker login ghcr.io
+          -u "${{ github.actor }}"
+          --password-stdin
+
+      - name: Tag with the commit SHA
+        # `latest` silently points at whatever was built most recently, so each
+        # build also gets its own immutable, traceable tag.
+        run: >
+          docker tag bloodbank:ci
+          ghcr.io/${{ github.repository_owner }}/bloodbank:${{ github.sha }}
+          && docker tag bloodbank:ci
+          ghcr.io/${{ github.repository_owner }}/bloodbank:latest
+
+      - name: Push to GitHub Container Registry
+        # Skipped on pull requests, where the token is read-only. The build and
+        # in-container test still run, so a PR is still fully verified.
+        if: github.event_name == 'push'
+        run: |
+          docker push ghcr.io/${{ github.repository_owner }}/bloodbank:${{ github.sha }}
+          docker push ghcr.io/${{ github.repository_owner }}/bloodbank:latest
